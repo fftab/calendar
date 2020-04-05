@@ -1,20 +1,23 @@
 // Gloabal Variables
-// ========================
+// ===============================
 
     // initializing workHours array containing the hours of the work day
     let workHours = [ 09, 10, 11, 12, 13, 14, 15, 16, 17 ];
 
     // initializing the current tasks stored in the input fields
-    let currentTasks = [ ];
+    let currentToDos = [ ];
 
     // initializing the timeColumn variable (will append time to this column)
-    let timeColumn = $("#time-column").html();
+    let timeColumn = $("#time-column"); // ERROR - $ not defined?
 
     // initializing the input-column variable (will append input boxes to this column)
-    let toDoInputColumn = $("#to-do-input-cloumn").html();
+    let toDoInputColumn = $("#to-do-input-cloumn");
 
     // initializing the submitButtonColumn variable (will append submit buttons to this column)
-    let submitButtonColumn = $("#submit-button-column").html();
+    let submitButtonColumn = $("#submit-button-column");
+
+    // initializing the display date paragraph (will display info from moment.js as paragraph text)
+    let displayDate = $("#currentDay");
 
     // using the moment.js API to retrieve the month day and year in real time
     let currentDate = 'https://moment.js.com/moment().format("ll")'; // Month Day Year
@@ -51,16 +54,20 @@ function initCalendar() {
             // Assign a Class for Styling
             newTimeLabel.attr("class", "time-labels");
             // Assign a For Attribute with Respect to Input
-            newTimeLabel.attr("for", "to-do-input" + JSON.stringify(i));
+            newTimeLabel.attr("for", "to-do-input-" + JSON.stringify(i));
             // Assign New Time Label Text
             newTimeLabel.text = JSON.stringify(workHours[i]);
-            // Appending New Time Label to Time Column
+            // Append New Time Label to Time Column
             timeColumn.append(newTimeLabel);
 
         // Creating Input Elements
 
             // Create New Input Element
-
+            let newInput = $("<input>");
+            // Assign an ID to newInput elements
+            newInput.attr("id", "to-do-input-" + JSON.stringify(i));
+            // Append New Input Element to Input Column
+            toDoInputColumn.append(newInput);
 
         // Create Save Buttons
 
