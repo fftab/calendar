@@ -1,4 +1,4 @@
-$(document).ready(function() {
+// $(document).ready(function() {
 
     // Gloabal Variables
     // ===============================
@@ -37,6 +37,20 @@ $(document).ready(function() {
     // Displaying Month Day and Year from Moment
     displayDate.text(JSON.stringify(currentDate));
 
+
+    /*
+            LATER
+        //if you are trying to access data from arr
+            //arr[i].time or arr[i].time task/toDo
+    
+    */
+    
+
+
+
+
+
+
     // Functions
     // =================================
 
@@ -44,13 +58,12 @@ $(document).ready(function() {
     function initCalendar() {
 
         // Grab local storage
-        // arr  = localstorage("",JSON.parse()); // grabs the string and turns it into object
+        // toDos  = localstorage("tasks",JSON.parse()); // grabs the string and turns it into object
 
         // Grab toDoList From The Local Storage
         // toDos = JSON.parse(localStorage.getItem("tasks"));
-
-        //Changed the date
-        //JQ to grab the ID for the date
+            //if todos is null
+                // todos = [];  
 
         // display page
 
@@ -69,7 +82,7 @@ $(document).ready(function() {
             // Create New Time Label
             let newTimeLabel = $("<label>");
             // Assign a Class for Styling
-            newTimeLabel.attr("class", "hour time-labels");
+            newTimeLabel.attr("class", "hour");
             // Assign a For Attribute with Respect to Input
             newTimeLabel.attr("for", "to-do-input");
             // Assign New Time Label Text
@@ -89,6 +102,8 @@ $(document).ready(function() {
             let newInput = $("<textarea>");
             // Assign an ID to newInput elements
             newInput.attr("class", "to-do-input");
+            // create data-index attr = workhours[i]
+            newInput.attr("data-index", workHours[i]);
             // Append New Input Element to Input Column
             newInputRow.append(newInput);
             // append new input row to to do input column
@@ -100,8 +115,8 @@ $(document).ready(function() {
             let newSaveButton = $("<button>");
             // Assign a Class for Styling
             newSaveButton.attr("class", "row saveBtn");
-            // Assign an ID
-            newSaveButton.attr("id", "save-button");
+            // create data-index attr = workhours[i]
+            newSaveButton.attr("data-index", workHours[i]);
             // Appending New Save Button to Save Button Column
             saveButtonColumn.append(newSaveButton);
 
@@ -109,46 +124,104 @@ $(document).ready(function() {
 
     }
 
-    function setWorkHoursClass() {
+    // setWorkHoursClass() <
+    // setWorkHoursClass(INDEX) <
+    function setWorkHoursClass(i) {
 
-    if (worksHours[i] < currentHour) {
+        if (worksHours[i] < currentHour) {
 
-        newTimeLabel.attr("class", "past");
+            newTimeLabel.attr("class", "past");
 
-    }
-    else if (workHours[i] == currentHour) {
+        }
+        else if (workHours[i] == currentHour) {
 
-        newTimeLabel.attr("class", "present");
+            newTimeLabel.attr("class", "present");
 
-    }
-    else if (workHours[i] > currentHour){
+        }
+        else if (workHours[i] > currentHour){
 
-        newTimeLabel.attr("class", "present");
+            newTimeLabel.attr("class", "present");
 
-    }
+        }
 
     }
     
     // Populate
     initCalendar();
 
-    setWorkHoursClass();
+    // setWorkHoursClass();
+
+
+    // function printThis(){
+    //     console.log("this");
+    // }
+
+    // function printMe(i){
+    //     console.log(i);
+    // }
+
+    // printThis();
+    // printMe("this");
 
     // // Create Click Event Listener for Save Button
-    // $("#save-button").onclick(function () {
+    $(".saveBtn").click(function () {
+        // Grab info here
 
-    //     //grab info herre
+            // declare local variable to hold to do input
+            let inputVal;
 
-    //     //ipnut
+            console.log($(".to-do-input"));
+            //for loop i < $(".to-do-input").length search for your dataindex
+            for (let i = 0; i < $(".to-do-input").length; i++) {
+                // console.log($(".to-do-input")[i].data("index"));
 
-    //     //Update Local Storage
-    //     //Update Local Storage with toDoList
-    //     // localStorage.setItem("toDo", JSON.stringify(toDoList));
-    //     //    localStorage = go to local storage
-    //     //     setItem = putting something/updating inside local storage
-    //     //     "toDo" - Variable For Local Storage item
-    //     //      JSON.stringify(toDoList) = turning your list into a string for the local storage
+                let currentInputBox = $(".to-do-input")[i];//Good
+                
+                //look for a dataindex equal to your button
+                //if(this.data("index") === $(".to-do-input")[i].attr("data-index"))
+                if ($(this).data("index") == currentInputBox.dataset.index) {
+                    
+                    // Defining inputVal 
+                    //inputVal = $(".to-do-input")[i].val();
+                    inputVal = currentInputBox.value;
+                    
+                    break;
 
-    // });
+                }
+                    
 
-});
+                    //grab that value and assign to your local variabnls
+
+            }
+            
+        //Creat an object with the time value and the task for the time
+            
+            //obj
+            let toDoObject = {
+
+                // time: $(this).data("index")
+                time: $(this).data("index"),
+                // toDo/Task: inputValue
+                task: inputVal
+
+            };
+
+            console.log(toDoObject);
+        //for to check current array if there is already an object for current task
+            //if it is already in arr
+                //update that object
+            //else
+                //add to your array
+                //arr.push(obj)
+        // let newArr = [];
+        // newArr.push(toDoObject);
+        toDos.push(toDoObject);
+
+            //stringify 
+
+        //Update Local Storage with toDoList
+        localStorage.setItem("tasks", JSON.stringify(toDos));
+        
+    });
+
+// });

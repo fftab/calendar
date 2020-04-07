@@ -63,6 +63,7 @@ textarea {
   border-bottom-right-radius: 15px;
   background-color: #06aed5;
   color: white;
+  width: 100%;
 }
 
 .saveBtn i:hover {
@@ -70,6 +71,3 @@ textarea {
   transition: all 0.3s ease-in-out;
 }
 
-/* .time-labels {
-
-} */
