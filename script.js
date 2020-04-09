@@ -12,26 +12,19 @@
     // initializing the timeColumn variable (will append time to this column)
     let timeColumn = $("#time-column"); // ERROR - $ not defined?
 
-    // Testing with Console
-    console.log(timeColumn);
-
     // initializing the input-column variable (will append input boxes to this column)
     let toDoInputColumn = $("#input-column");
-
-    // Testing with Console
-    console.log(toDoInputColumn);
 
     // initializing the saveButtonColumn variable (will append submit buttons to this column)
     let saveButtonColumn = $("#save-button-column");
 
-    console.log(saveButtonColumn)
-
     // initializing the display date paragraph (will display info from moment.js as paragraph text)
     let displayDate = $("#currentDay");
 
-    // using the moment.js API to retrieve the month day and year in real time
+    // using the moment.js API to retrieve the month day and year
     let currentDate = moment().format("ll"); // Month Day Year
 
+    // using moment.js API to retrive the hour
     let currentHour = moment().format("HH"); // 24Hr Time Used to check time block
 
     // Displaying Month Day and Year from Moment
@@ -44,12 +37,6 @@
             //arr[i].time or arr[i].time task/toDo
     
     */
-    
-
-
-
-
-
 
     // Functions
     // =================================
@@ -59,6 +46,7 @@
 
         // Grab local storage
         // toDos  = localstorage("tasks",JSON.parse()); // grabs the string and turns it into object
+        // toDos = localstorage
 
         // Grab toDoList From The Local Storage
         // toDos = JSON.parse(localStorage.getItem("tasks"));
@@ -122,34 +110,42 @@
 
         }
 
-    }
-
-    // setWorkHoursClass() <
-    // setWorkHoursClass(INDEX) <
-    function setWorkHoursClass(i) {
-
-        if (worksHours[i] < currentHour) {
-
-            newTimeLabel.attr("class", "past");
-
-        }
-        else if (workHours[i] == currentHour) {
-
-            newTimeLabel.attr("class", "present");
-
-        }
-        else if (workHours[i] > currentHour){
-
-            newTimeLabel.attr("class", "present");
-
-        }
+        setWorkHoursClass();
+        // setWorkHoursClass(i); <-- ?
 
     }
+
+    // Declaring Function to Set Class for Work Hours (Passing in the Index)
+    function setWorkHoursClass() {
+
+
+        for (i = 0; i < workHours.length; i++) {
+
+            if (worksHours[i] < currentHour) {
+
+                newInput.attr("class", "past");
+
+            }
+            else if (workHours[i] == currentHour) {
+
+                newInput.attr("class", "present");
+
+            }
+            else if (workHours[i] > currentHour){
+
+                newInput.attr("class", "present");
+
+            }
+        
+        }
+
+    }
+
     
     // Populate
     initCalendar();
 
-    // setWorkHoursClass();
+    // setWorkHoursClass(); <-- ?
 
 
     // function printThis(){
@@ -189,8 +185,7 @@
 
                 }
                     
-
-                    //grab that value and assign to your local variabnls
+                    //grab that value and assign to your local variables
 
             }
             
@@ -208,11 +203,17 @@
 
             console.log(toDoObject);
         //for to check current array if there is already an object for current task
-            //if it is already in arr
+        // for () {
+
+            
+                //if it is already in arr
                 //update that object
             //else
                 //add to your array
                 //arr.push(obj)
+
+        // }
+
         // let newArr = [];
         // newArr.push(toDoObject);
         toDos.push(toDoObject);
@@ -224,4 +225,21 @@
         
     });
 
+    // Declaring Hour Updater Function
+    function updateHr() {
+
+        $("")
+        localStorage.getItem(); // ("data-index", workHours[i])
+        // newInput.attr("class", "to-do-input")
+
+    }
+
+
+
 // });
+
+// $('.').on('click', function() {
+//     var inputText = $(this).siblings('input').val();
+//     var saveID = $(this).attr('id');
+//     localStorage.setItem(saveID, inputText);
+//   });
